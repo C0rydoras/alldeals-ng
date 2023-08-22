@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  caddy:
+    env_file: ./.envs/.local/.caddy
+    networks:
+      default:
+        aliases:
+          - alldeals.local
+  api:
+    build: ./api/
+    volumes:
+      - ./api:/app
+      - ./api/pdbrc.py:/home/outdated/.pdbrc.py
+    ports:
+      - "8000:8000"
+    command:
+      [
+        "/bin/sh",
+        "-c",
+        "uvicorn app:app --reload --host 0.0.0.0",
+      ]
+    env_file: ./.envs/.local/.api

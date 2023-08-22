@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "alldeals-flask-api"
+version = "0.0.1"
+description = ""
+authors = ["Arthur Deierlein <arthur.deierlein@adfinis.com>"]
+license = "MIT"
+readme = "README.md"
+packages = []
+
+[tool.poetry.dependencies]
+python = "^3.11"
+uvicorn = "^0.23.2"
+fastapi = "^0.103.0"
+requests = "^2.31.0"
+
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.0.285"
+pytest = "^7.4.0"
+black = "^23.7.0"
+pdbpp = "^0.10.3"
+
+[tool.ruff]
+ignore = ["E501"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
