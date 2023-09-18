@@ -1,13 +1,10 @@
-FROM node:20-slim as build
-
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
+FROM oven/bun:latest as build
 
 WORKDIR /solid
-COPY package.json pnpm-lock.yaml .
-RUN pnpm install --frozen-lockfile
 COPY . .
-RUN pnpm run build
+RUN bun install
+
+RUN bun run build
 EXPOSE 4200
 
 FROM nginx:alpine
