@@ -49,8 +49,7 @@ function Footer() {
 }
 function Deal({ id, deal }) {
   const availability = deal.availability;
-  const color = `color-mix(in oklab, hsl(${(availability.replace("%", "") / 100) * 120
-    }, 100%, 50%), white)`;
+  const color = deal.color;
   return (
     <a
       id={id}
