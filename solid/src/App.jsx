@@ -5,6 +5,7 @@ const fetchDeals = async () => {
   return resp.json();
 };
 
+
 function Bar() {
   return (
     <nav class="h-30 w-full px-2 py-3 bg-white shadow-lg">
@@ -15,7 +16,6 @@ function Bar() {
         <li class="text-2xl px-3 whitespace-nowrap">
           <a
             href="https://github.com/c0rydoras/alldeals-ng.git"
-            target="_blank"
           >
             Github Repo
           </a>
@@ -47,16 +47,16 @@ function Footer() {
     </div>
   );
 }
+
 function Deal({ id, deal }) {
   const availability = deal.availability;
-  const color = `color-mix(in oklab, hsl(${(availability.replace("%", "") / 100) * 120
-    }, 100%, 50%), white)`;
+  const color = deal.color;
   return (
     <a
       id={id}
       href={deal.url}
       target="_blank"
-      class="bg-white flex flex-col shadow-lg p-6 hover:shadow-xl transition-[box-shadow] duration-300 text-slate-700 rounded-lg  "
+      class="bg-white flex flex-col shadow-lg p-6 hover:shadow-xl transition-[box-shadow] duration-300 text-slate-700 rounded-lg"
     >
       <div class="flex justify-between">
         <div class="flex flex-col mr-2">
@@ -88,14 +88,14 @@ function Deal({ id, deal }) {
         <p>{id}</p>
       </div>
       <div
-        class="rounded-lg mt-3 text-slate-700 shadow-lg relative  border-4"
-        style={`border-color: ${color};`}
+        class={`rounded-lg mt-3 text-slate-700 shadow-lg relative border-4`}
+          style={`border-color: ${color}`}
       >
         <div
-          style={`width: ${availability}; background: ${color};`}
+          style={`width: ${availability}; background: ${color}`}
           class="w-full text-center block h-6"
         />
-        <strong class="text-slate-600 absolute top-0 left-[50%] ">
+        <strong class="absolute top-0 left-[50%]" style={`color: color-mix(in oklab, ${color}, white)`}>
           {deal.availability}
         </strong>
       </div>
