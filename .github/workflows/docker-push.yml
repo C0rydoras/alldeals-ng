@@ -1,0 +1,30 @@
+name: Docker Publish
+
+on:
+  push:
+    branches:
+      - main 
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Login to GitHub Container Registry
+        run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
+
+      - name: Build and Push API Docker Image
+        working-directory: api
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/alldeals-ng/api:latest .
+          docker push ghcr.io/${{ github.repository_owner }}/alldeals-ng/api:latest
+
+      - name: Build and Push Frontend Docker Image
+        working-directory: solid
+        run: |
+          docker build -t ghcr.io/${{ github.repository_owner }}/alldeals-ng/frontend:latest .
+          docker push ghcr.io/${{ github.repository_owner }}/alldeals-ng/frontend:latest
+
