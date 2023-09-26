@@ -22,7 +22,7 @@ frontend:
     tag: "latest"
   service:
     type: ClusterIP
-    port: 4200
+    port: 80
 
 imagePullSecrets: []
 nameOverride: ""
