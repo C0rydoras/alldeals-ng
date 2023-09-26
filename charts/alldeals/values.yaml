@@ -7,7 +7,7 @@ replicaCount: 1
 api:
   image:
     repository: ghcr.io/c0rydoras/alldeals-ng/api
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
   service:
@@ -17,7 +17,7 @@ api:
 frontend:
   image:
     repository: ghcr.io/c0rydoras/alldeals-ng/frontend
-    pullPolicy: IfNotPresent
+    pullPolicy: Always
     # Overrides the image tag whose default is the chart appVersion.
     tag: "latest"
   service:
