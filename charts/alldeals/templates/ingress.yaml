@@ -50,10 +50,10 @@ spec:
               service:
                 name: {{ .backend.service.name }}
                 port:
-                  number: 80
+                  number: {{ .backend.service.port.number }}
               {{- else }}
               serviceName: {{ $fullName }}
-              servicePort: 80
+              servicePort: {{ .backend.service.port.number }}
               {{- end }}
           {{- end }}
     {{- end }}
