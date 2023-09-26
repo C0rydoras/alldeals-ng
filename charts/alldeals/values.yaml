@@ -50,23 +50,34 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
-
 ingress:
   enabled: false
-  className: ""
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  className: "nginx"
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
   hosts:
-    - host: chart-example.local
+    - host: alldeals.example.com
       paths:
         - path: /
           pathType: Prefix
+          backend:
+            service:
+              name: "alldeals-frontend"
+              port:
+                number: "80"
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: "alldeals-api"
+              port:
+                number: "80"
 
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+  tls:
+    - secretName: chart-example-tls
+      hosts:
+        - alldeals.example.com
 
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
