@@ -31,7 +31,6 @@ function Footer() {
       <ul class="w-full flex">
         <li class="px-5 text-xl w-full text-slate-400">
           <a
-            target="_blank"
             href="https://github.com/C0rydoras/alldeals-ng/blob/main/LICENSE"
           >
             LICENSE
@@ -39,7 +38,7 @@ function Footer() {
         </li>
         <li class="text-lg text-slate-300 whitespace-nowrap px-5">
           frontend by{" "}
-          <a href="https://github.com/c0rydoras" target="_blank">
+          <a href="https://github.com/c0rydoras">
             @c0rydoras
           </a>
         </li>
@@ -89,7 +88,7 @@ function Deal({ id, deal }) {
       </div>
       <div
         class={`rounded-lg mt-3 text-slate-700 shadow-lg relative border-4`}
-          style={`border-color: ${color}`}
+        style={`border-color: ${color}`}
       >
         <div
           style={`width: ${availability}; background: ${color}`}
@@ -119,13 +118,13 @@ function Deals() {
 function App() {
   return (
     <>
-      <header class="sticky top-[0] z-40">
+      <header class="sticky top-0 z-40">
         <Bar />
       </header>
       <main>
         <Deals />
       </main>
-      <footer class="sticky mt-auto bottom-[0]">
+      <footer class="sticky top-[100%]">
         <Footer />
       </footer>
     </>
