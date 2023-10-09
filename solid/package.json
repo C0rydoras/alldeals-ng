@@ -9,9 +9,9 @@
     "preview": "bun --bun x vite preview",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:fix": "concurrently \"npm:lint:*:fix\" --names \"fix:\"",
-    "lint:js": "eslint . --cache",
-    "lint:js:fix": "eslint . --fix",
-    "lint:css": "stylelint \"**/*.css\"",
+    "lint:js": "eslint ./src/*.jsx",
+    "lint:js:fix": "eslint ./src/*.jsx --fix",
+    "lint:css": "stylelint \"./src/**/*.css\"",
     "lint:css:fix": "concurrently \"npm:lint:css -- --fix\""
   },
   "dependencies": {
@@ -22,8 +22,9 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.10",
     "autoprefixer": "^10.4.15",
+    "bun-types": "latest",
     "concurrently": "^8.2.1",
-    "eslint": "^8.47.0",
+    "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-n": "^16.0.2",
     "eslint-plugin-prettier": "^5.0.0",
