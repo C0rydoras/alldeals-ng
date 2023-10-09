@@ -1,0 +1,29 @@
+name: Lint
+
+on:
+  pull_request:
+    branches:
+      - main 
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+
+      - name: Install Bun
+        run: bun install
+        working-directory: solid
+
+      - name: Lint
+        run: bun run lint
+        working-directory: solid
+        
