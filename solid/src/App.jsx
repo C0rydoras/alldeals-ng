@@ -1,23 +1,22 @@
 import { For, createResource, Show } from "solid-js";
+import Fa from "solid-fa";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
 
 const fetchDeals = async () => {
   const resp = await fetch("https://deals.gk.wtf/api.php");
   return resp.json();
 };
 
-
 function Bar() {
   return (
-    <nav class="h-30 w-full px-2 py-3 bg-white shadow-lg">
-      <ul class="w-full flex">
-        <li class="font-bold text-3xl w-full px-3">
+    <nav class="h-30 w-full px-2 pt-3 pb-2 bg-white shadow-lg">
+      <ul class="w-full flex text-3xl">
+        <li class="font-bold w-full px-3">
           <a href="/">AllDeals</a>
         </li>
-        <li class="text-2xl px-3 whitespace-nowrap">
-          <a
-            href="https://github.com/c0rydoras/alldeals-ng.git"
-          >
-            Github Repo
+        <li class="px-3 whitespace-nowrap">
+          <a href="https://github.com/c0rydoras/alldeals-ng.git">
+            <Fa icon={faGithub} />
           </a>
         </li>
       </ul>
@@ -30,17 +29,12 @@ function Footer() {
     <div class="h-30 w-full px-2 py-3 bg-white shadow-xl ">
       <ul class="w-full flex">
         <li class="px-5 text-xl w-full text-slate-400">
-          <a
-            href="https://github.com/C0rydoras/alldeals-ng/blob/main/LICENSE"
-          >
+          <a href="https://github.com/C0rydoras/alldeals-ng/blob/main/LICENSE">
             LICENSE
           </a>
         </li>
         <li class="text-lg text-slate-300 whitespace-nowrap px-5">
-          frontend by{" "}
-          <a href="https://github.com/c0rydoras">
-            @c0rydoras
-          </a>
+          frontend by <a href="https://github.com/c0rydoras">@c0rydoras</a>
         </li>
       </ul>
     </div>
@@ -55,46 +49,60 @@ function Deal({ id, deal }) {
       id={id}
       href={deal.url}
       target="_blank"
-      class="bg-white flex flex-col shadow-lg p-6 hover:shadow-xl transition-[box-shadow] duration-300 text-slate-700 rounded-lg"
+      class="relative bg-white flex flex-col shadow-lg p-6 hover:grayscale hover:shadow-xl hover: [box-shadow] duration-300 text-slate-700 rounded-lg"
     >
       <div class="flex justify-between">
         <div class="flex flex-col mr-2">
-          <span
-            class="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold"
-          >
+          <span class="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold">
             {deal.title}
           </span>
           <span class="h-20 text-slate-500 text-2xs sm:text-xs md:text-md lg:text-lg">
             {deal.subtitle}
           </span>
         </div>
-        <img class="h-[32px] lg:h-[64px] rounded aspect-square" src={`https://www.google.com/s2/favicons?${new URLSearchParams({ domain: deal.url, sz: 256 })}`} />
+        <img
+          class="h-[32px] lg:h-[48px] rounded aspect-square"
+          src={`https://www.google.com/s2/favicons?${new URLSearchParams({
+            domain: deal.url,
+            sz: 256,
+          })}`}
+        />
       </div>
-      <div class="w-full h-60 rounded grid place-items-center h-full w-full">
-        <img class="max-h-60 max-w-[50%] object-scale-down" src={deal.image} alt={id} />
+      <div class="w-full h-60 rounded grid place-items-center h-full">
+        <img
+          class="max-h-50 max-w-[50%] object-scale-down mb-4"
+          src={deal.image}
+          alt={id}
+        />
       </div>
-
 
       <div class="flex justify-between items-end">
         <div class="flex justify-between">
           <div class="flex flex-col">
-            <strong class="text-2xl whitespace-nowrap">CHF {deal.new_price}</strong>
+            <strong class="text-2xl whitespace-nowrap">
+              CHF {deal.new_price}
+            </strong>
             <p class="text-xl line-through whitespace-nowrap ">
               CHF {deal.old_price}
             </p>
           </div>
         </div>
-        <p>{id}</p>
+        <p style={`color: ${color}`} class="pr-2 drop-shadow-lg">
+          {deal.subcategory}
+        </p>
       </div>
       <div
-        class={`rounded-lg mt-3 text-slate-700 shadow-lg relative border-4`}
+        class={`rounded-lg mt-3 text-slate-700 shadow-lg relative border-2`}
         style={`border-color: ${color}`}
       >
         <div
           style={`width: ${availability}; background: ${color}`}
-          class="w-full text-center block h-6"
+          class="w-full text-center block h-6 rounded-l-md"
         />
-        <strong class="absolute top-0 left-[50%]" style={`color: color-mix(in oklab, ${color}, white)`}>
+        <strong
+          class="absolute top-0 left-[50%] drop-shadow-sm"
+          style={`color: color-mix(in oklab, ${color}, white)`}
+        >
           {deal.availability}
         </strong>
       </div>
@@ -105,7 +113,7 @@ function Deals() {
   const [deals] = createResource(fetchDeals);
 
   return (
-    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xl2:grid-cols-4 gap-10 p-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 lg:gap-16 p-5 md:p-10">
       <Show fallback={<p>...loading</p>} when={deals()}>
         <For each={Object.entries(deals())}>
           {(deal) => <Deal id={deal[0]} deal={deal[1]} />}
