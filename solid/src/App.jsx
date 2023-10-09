@@ -41,29 +41,29 @@ function Footer() {
   );
 }
 
-function Deal({ id, deal }) {
-  const availability = deal.availability;
-  const color = deal.color;
+function Deal(props) {
+  const availability = props.deal.availability;
+  const color = props.deal.color;
   return (
     <a
-      id={id}
-      href={deal.url}
+      id={props.id}
+      href={props.deal.url}
       target="_blank"
       class="relative bg-white flex flex-col shadow-lg p-6 hover:grayscale hover:shadow-xl hover: [box-shadow] duration-300 text-slate-700 rounded-lg"
     >
       <div class="flex justify-between">
         <div class="flex flex-col mr-2">
           <span class="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold">
-            {deal.title}
+            {props.deal.title}
           </span>
           <span class="h-20 text-slate-500 text-2xs sm:text-xs md:text-md lg:text-lg">
-            {deal.subtitle}
+            {props.deal.subtitle}
           </span>
         </div>
         <img
           class="h-[32px] lg:h-[48px] rounded aspect-square"
           src={`https://www.google.com/s2/favicons?${new URLSearchParams({
-            domain: deal.url,
+            domain: props.deal.url,
             sz: 256,
           })}`}
         />
@@ -71,8 +71,8 @@ function Deal({ id, deal }) {
       <div class="w-full h-60 rounded grid place-items-center h-full">
         <img
           class="max-h-50 max-w-[50%] object-scale-down mb-4"
-          src={deal.image}
-          alt={id}
+          src={props.deal.image}
+          alt={props.id}
         />
       </div>
 
@@ -80,15 +80,15 @@ function Deal({ id, deal }) {
         <div class="flex justify-between">
           <div class="flex flex-col">
             <strong class="text-2xl whitespace-nowrap">
-              CHF {deal.new_price}
+              CHF {props.deal.new_price}
             </strong>
             <p class="text-xl line-through whitespace-nowrap ">
-              CHF {deal.old_price}
+              CHF {props.deal.old_price}
             </p>
           </div>
         </div>
         <p style={`color: ${color}`} class="pr-2 drop-shadow-lg">
-          {deal.subcategory}
+          {props.deal.subcategory}
         </p>
       </div>
       <div
@@ -103,7 +103,7 @@ function Deal({ id, deal }) {
           class="absolute top-0 left-[50%] drop-shadow-sm"
           style={`color: color-mix(in oklab, ${color}, white)`}
         >
-          {deal.availability}
+          {props.deal.availability}
         </strong>
       </div>
     </a>
