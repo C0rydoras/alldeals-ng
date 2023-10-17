@@ -43,8 +43,7 @@ function Footer() {
 }
 
 function Deal(props) {
-    //const availability = props.deal.availability;
-    const availability = '0%';
+    const availability = props.deal.availability;
     const color = props.deal.color;
     return (
         <a
