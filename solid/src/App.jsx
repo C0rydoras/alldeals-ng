@@ -59,7 +59,7 @@ function Deal(props) {
                     <span class="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold">
                         {props.deal.title}
                     </span>
-                    <span class="h-20 text-slate-500 text-2xs sm:text-xs md:text-md lg:text-lg">
+                    <span class="max-h-20 text-slate-500 text-2xs sm:text-xs md:text-md lg:text-lg">
                         {props.deal.subtitle}
                     </span>
                 </div>
@@ -73,9 +73,9 @@ function Deal(props) {
                     )}`}
                 />
             </div>
-            <div class="w-full h-60 rounded grid place-items-center h-full">
+            <div class="w-full max-h-[60%] rounded grid place-items-center h-full mt-4">
                 <img
-                    class="max-h-50 max-w-[50%] object-scale-down mb-4"
+                    class="max-h-60 w-2/5 object-scale-down mb-4"
                     src={props.deal.image}
                     alt={props.id}
                 />
@@ -92,14 +92,19 @@ function Deal(props) {
                         </p>
                     </div>
                 </div>
-                <p style={`color: ${color}`} class="pr-2 drop-shadow-lg">
-                    {props.deal.subcategory}
-                </p>
             </div>
             <div
                 class={`rounded-lg mt-3 text-slate-700 shadow-lg relative border-2`}
                 style={`border-color: ${color}`}
             >
+                <p
+                    style={`color: ${color}; border: 2px solid ${
+                        props.deal.subcategory ? color : 'white'
+                    }; 	border-bottom-color: transparent;`}
+                    class="pl-2 pr-2 absolute -mt-8 top-1 right-1 rounded-lg rounded-bl-none rounded-br-none"
+                >
+                    {props.deal.subcategory}
+                </p>
                 <div
                     style={`width: ${availability}; background: ${color}`}
                     class="w-full text-center block h-6 rounded-l-md"
