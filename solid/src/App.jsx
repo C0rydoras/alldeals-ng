@@ -50,10 +50,23 @@ function Deal(props) {
             id={props.id}
             href={props.deal.url}
             target="_blank"
+            style={`border: 2px solid color-mix(in oklab, ${color}, white)`}
             class={`relative bg-white flex flex-col shadow-lg p-6 hover:shadow-xl hover: [box-shadow] duration-300 text-slate-700 rounded-lg ${
                 availability === '0%' ? 'grayscale' : ''
             }`}
         >
+            <p
+                style={`color: ${color}; border: ${
+                    props.deal.subcategory
+                        ? '2px solid color-mix(in oklab, ' +
+                          color +
+                          ', white); border-bottom: 2px solid transparent;'
+                        : 'none'
+                };`}
+                class="pl-2 pr-2 absolute -mt-8 top-1.5 right-2 rounded-lg rounded-bl-none rounded-br-none bg-white z-0"
+            >
+                {props.deal.subcategory}
+            </p>
             <div class="flex justify-between">
                 <div class="flex flex-col mr-2">
                     <span class="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold">
@@ -97,14 +110,6 @@ function Deal(props) {
                 class={`rounded-lg mt-3 text-slate-700 shadow-lg relative border-2`}
                 style={`border-color: ${color}`}
             >
-                <p
-                    style={`color: ${color}; border: 2px solid ${
-                        props.deal.subcategory ? color : 'white'
-                    }; 	border-bottom-color: transparent;`}
-                    class="pl-2 pr-2 absolute -mt-8 top-1 right-1 rounded-lg rounded-bl-none rounded-br-none"
-                >
-                    {props.deal.subcategory}
-                </p>
                 <div
                     style={`width: ${availability}; background: ${color}`}
                     class="w-full text-center block h-6 rounded-l-md"
@@ -123,7 +128,7 @@ function Deals() {
     const [deals] = createResource(fetchDeals);
 
     return (
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 lg:gap-16 p-5 md:p-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-5 lg:gap-10 p-5 md:p-10">
             <Show fallback={<p>...loading</p>} when={deals()}>
                 <For each={Object.entries(deals())}>
                     {(deal) => <Deal id={deal[0]} deal={deal[1]} />}
