@@ -1,24 +1,29 @@
-from dataclasses import dataclass
 import requests
+from typing import List
+from fastapi import Depends, FastAPI, APIRouter
+from sqlalchemy.orm import Session
 
-from fastapi import FastAPI, APIRouter
+from . import crud, models, schemas
+from .database import SessionLocal, engine
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 router = APIRouter(prefix="/api/v1")
 
 
-@dataclass
-class Deal:
-    shop: str
-    title: str
-    subtitle: str
-    price: float
-    old_price: float
-    remaining: int
-    image: str
-    link: str
-    date: str
+# Dependency
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
+
+@router.get("/sites", response_model=List[schemas.Sites])
+def get_sites(db: Session = Depends(get_db)):
+    return crud.get_sites(db)
 
 
 @router.get("/deals")
