@@ -1,12 +1,14 @@
 from dataclasses import dataclass
 import requests
-
+import json
 from fastapi import FastAPI, APIRouter
+from fastapi_utils.tasks import repeat_every
+from scraper import scrape
 
 app = FastAPI()
-
+app.deals = {}
 router = APIRouter(prefix="/api/v1")
-
+deals = None
 
 @dataclass
 class Deal:
@@ -22,8 +24,12 @@ class Deal:
 
 
 @router.get("/deals")
-def hello_world():
-    return requests.get("https://deals.gk.wtf/api.php").json()
+def get_deals():
+    return app.deals
 
-
+@app.on_event("startup")
+@repeat_every(seconds=60*10)
+def update_deals():
+    app.deals = scrape()
+    
 app.include_router(router)
