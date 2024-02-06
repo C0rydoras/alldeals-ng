@@ -6,7 +6,7 @@ from fastapi_utils.tasks import repeat_every
 from scraper import scrape
 
 app = FastAPI()
-
+app.deals = {}
 router = APIRouter(prefix="/api/v1")
 deals = None
 
@@ -25,12 +25,11 @@ class Deal:
 
 @router.get("/deals")
 def get_deals():
-    return deals
+    return app.deals
 
 @app.on_event("startup")
 @repeat_every(seconds=60*10)
 def update_deals():
-    global deals
-    deals = scrape()
+    app.deals = scrape()
     
 app.include_router(router)
